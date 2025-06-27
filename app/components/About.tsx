@@ -67,12 +67,12 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden bg-slate-950">
+    <section id="about" className="min-h-screen flex items-center py-20 relative overflow-hidden bg-slate-950">
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/10 via-slate-900 to-slate-950 z-0"></div>
       <ParticleField />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         <SectionHeading title="About Me" />
 
         <div className="max-w-6xl mx-auto">
@@ -139,7 +139,7 @@ export default function About() {
 
           {/* Skills Grid */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

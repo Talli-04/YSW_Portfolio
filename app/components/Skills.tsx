@@ -153,10 +153,10 @@ export default function Skills() {
   ]
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden bg-slate-950">
+    <section id="skills" className="min-h-screen flex items-center py-20 relative overflow-hidden bg-slate-950">
       <AnimatedBackground />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         <SectionHeading title="Technical Skills" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">

@@ -337,11 +337,11 @@ export default function Projects() {
   const selectedProjectData = projects.find((p) => p.id === selectedProject)
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden bg-slate-950">
+    <section id="projects" className="min-h-screen flex items-center py-20 relative overflow-hidden bg-slate-950">
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-900/10 via-slate-900 to-slate-950 z-0"></div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         <SectionHeading title="Professional Projects" subtitle="대표 프로젝트" />
 
         {/* Project Slider */}

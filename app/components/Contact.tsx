@@ -65,7 +65,7 @@ const ContactCard = ({
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 relative overflow-hidden bg-slate-950">
+    <section id="contact" className="min-h-screen flex items-center py-20 relative overflow-hidden bg-slate-950">
       {/* Enhanced background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/10 via-slate-900 to-slate-950 z-0"></div>
 
@@ -95,7 +95,7 @@ export default function Contact() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 w-full">
         <SectionHeading title="Contact" subtitle="언제든지 연락주세요" />
 
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
