@@ -14,16 +14,18 @@ const notoSansKR = Noto_Sans_KR({
 
 export const metadata = {
   title: "YSW_Portfolio | B2C/B2B 웹 서비스 기획 및 개발 PM",
-  description: "IT 제품의 기획부터 출시까지 전 과정을 관리하는 Product Manager 포트폴리오입니다.",
+  description: "B2C/B2B 웹 서비스 기획 및 개발 커뮤니케이션 경험 보유 PM",
+  metadataBase: new URL("https://ysw-portfolio.vercel.app"),
   openGraph: {
     title: "YSW_Portfolio",
     description: "B2C/B2B 웹 서비스 기획 및 개발 커뮤니케이션 경험 보유 PM",
     type: "website",
     locale: "ko_KR",
+    url: "https://ysw-portfolio.vercel.app",
     siteName: "YSW_Portfolio",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "YSW_Portfolio - Product Manager Portfolio",
@@ -34,7 +36,15 @@ export const metadata = {
     card: "summary_large_image",
     title: "YSW_Portfolio",
     description: "B2C/B2B 웹 서비스 기획 및 개발 커뮤니케이션 경험 보유 PM",
-    images: ["/images/og-image.jpg"],
+    images: ["/og-image.png"],
+  },
+  other: {
+    "og:image": "/og-image.png",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:type": "website",
+    "og:title": "YSW_Portfolio",
+    "og:description": "B2C/B2B 웹 서비스 기획 및 개발 커뮤니케이션 경험 보유 PM",
   },
     generator: 'v0.dev'
 }
@@ -46,6 +56,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" suppressHydrationWarning className="scroll-smooth">
+      <head>
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="YSW_Portfolio" />
+        <meta property="og:description" content="B2C/B2B 웹 서비스 기획 및 개발 커뮤니케이션 경험 보유 PM" />
+      </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} ${notoSansKR.variable} font-sans bg-slate-950 text-white`}
       >
