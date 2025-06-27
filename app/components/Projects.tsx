@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   ChevronLeft,
   ChevronRight,
@@ -26,6 +26,19 @@ export default function Projects() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
   const [showAllProjects, setShowAllProjects] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const projects = [
     {
@@ -311,11 +324,13 @@ export default function Projects() {
   ]
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 3 >= projects.length ? 0 : prev + 1))
+    const maxSlides = isMobile ? projects.length - 1 : projects.length - 3
+    setCurrentSlide((prev) => (prev >= maxSlides ? 0 : prev + 1))
   }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 < 0 ? Math.max(0, projects.length - 3) : prev - 1))
+    const maxSlides = isMobile ? projects.length - 1 : projects.length - 3
+    setCurrentSlide((prev) => (prev <= 0 ? maxSlides : prev - 1))
   }
 
   const openProjectDetail = (projectId: number) => {
@@ -336,12 +351,15 @@ export default function Projects() {
 
   const selectedProjectData = projects.find((p) => p.id === selectedProject)
 
+  // Calculate slide width based on screen size
+  const slideWidth = isMobile ? 100 : 100 / 3
+
   return (
     <section id="projects" className="min-h-screen flex items-center py-20 relative overflow-hidden bg-slate-950">
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-violet-900/10 via-slate-900 to-slate-950 z-0"></div>
 
-      <div className="container mx-auto px-6 relative z-10 w-full">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
         <SectionHeading title="Professional Projects" subtitle="대표 프로젝트" />
 
         {/* Project Slider */}
@@ -349,35 +367,35 @@ export default function Projects() {
           {/* Navigation Buttons */}
           <motion.button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 group"
+            className="absolute left-2 lg:left-0 top-1/2 transform -translate-y-1/2 z-10 group"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 rounded-full shadow-lg border border-indigo-500/30 backdrop-blur-md group-hover:shadow-indigo-500/25 transition-all duration-300">
-              <ChevronLeft className="w-6 h-6 text-white" />
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-3 lg:p-4 rounded-full shadow-lg border border-indigo-500/30 backdrop-blur-md group-hover:shadow-indigo-500/25 transition-all duration-300">
+              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
             </div>
           </motion.button>
 
           <motion.button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 group"
+            className="absolute right-2 lg:right-0 top-1/2 transform -translate-y-1/2 z-10 group"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 rounded-full shadow-lg border border-purple-500/30 backdrop-blur-md group-hover:shadow-purple-500/25 transition-all duration-300">
-              <ChevronRight className="w-6 h-6 text-white" />
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-3 lg:p-4 rounded-full shadow-lg border border-purple-500/30 backdrop-blur-md group-hover:shadow-purple-500/25 transition-all duration-300">
+              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
             </div>
           </motion.button>
 
           {/* Project Cards */}
-          <div className="overflow-hidden rounded-2xl mx-16">
+          <div className="overflow-hidden rounded-2xl mx-12 lg:mx-16">
             <motion.div
               className="flex"
-              animate={{ x: `-${currentSlide * (100 / 3)}%` }}
+              animate={{ x: `-${currentSlide * slideWidth}%` }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               {projects.map((project, index) => (
-                <div key={project.id} className="w-1/3 flex-shrink-0 px-4">
+                <div key={project.id} className={`${isMobile ? "w-full" : "w-1/3"} flex-shrink-0 px-2 lg:px-4`}>
                   <motion.div
                     className="bg-slate-900/80 backdrop-blur-md rounded-2xl border border-indigo-500/20 overflow-hidden cursor-pointer group hover:border-indigo-500/40 transition-all duration-300 h-full flex flex-col"
                     onClick={() => openProjectDetail(project.id)}
@@ -387,7 +405,7 @@ export default function Projects() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     {/* Project Image */}
-                    <div className="relative h-64 overflow-hidden flex-shrink-0">
+                    <div className="relative h-48 lg:h-64 overflow-hidden flex-shrink-0">
                       <Image
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
@@ -403,32 +421,32 @@ export default function Projects() {
                     </div>
 
                     {/* Project Info */}
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex items-start gap-4 mb-4">
+                    <div className="p-4 lg:p-6 flex-1 flex flex-col">
+                      <div className="flex items-start gap-3 lg:gap-4 mb-4">
                         <div className="p-2 rounded-lg bg-slate-800 border border-indigo-500/20 flex-shrink-0">
                           {project.icon}
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-white korean-heading leading-tight mb-2 line-clamp-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base lg:text-lg font-bold text-white korean-heading leading-tight mb-2 line-clamp-2">
                             {project.title}
                           </h3>
-                          <div className="flex items-center text-sm text-slate-400 min-w-0">
-                            <Calendar className="w-4 h-4 mr-2 text-indigo-400 flex-shrink-0" />
+                          <div className="flex items-center text-xs lg:text-sm text-slate-400 min-w-0">
+                            <Calendar className="w-3 h-3 lg:w-4 lg:h-4 mr-2 text-indigo-400 flex-shrink-0" />
                             <span className="korean-text truncate">{project.period}</span>
                           </div>
                         </div>
                       </div>
 
-                      <p className="text-slate-300 korean-text text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+                      <p className="text-slate-300 korean-text text-xs lg:text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
                         {project.description}
                       </p>
 
                       <div className="flex items-center justify-between mt-auto gap-2">
-                        <div className="flex items-center text-sm text-slate-400 min-w-0 flex-1">
-                          <User className="w-4 h-4 mr-2 text-blue-400 flex-shrink-0" />
+                        <div className="flex items-center text-xs lg:text-sm text-slate-400 min-w-0 flex-1">
+                          <User className="w-3 h-3 lg:w-4 lg:h-4 mr-2 text-blue-400 flex-shrink-0" />
                           <span className="korean-text text-xs truncate">{project.role}</span>
                         </div>
-                        <span className="text-indigo-400 text-sm korean-text group-hover:text-indigo-300 transition-colors duration-300 whitespace-nowrap flex-shrink-0">
+                        <span className="text-indigo-400 text-xs lg:text-sm korean-text group-hover:text-indigo-300 transition-colors duration-300 whitespace-nowrap flex-shrink-0">
                           자세히 보기 →
                         </span>
                       </div>
@@ -440,12 +458,12 @@ export default function Projects() {
           </div>
 
           {/* Slide Indicators */}
-          <div className="flex justify-center mt-8 gap-2">
-            {Array.from({ length: Math.max(1, projects.length - 2) }).map((_, index) => (
+          <div className="flex justify-center mt-6 lg:mt-8 gap-2">
+            {Array.from({ length: isMobile ? projects.length : Math.max(1, projects.length - 2) }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full transition-all duration-300 ${
                   index === currentSlide ? "bg-indigo-500" : "bg-slate-600 hover:bg-slate-500"
                 }`}
               />
@@ -454,14 +472,14 @@ export default function Projects() {
         </div>
 
         {/* 프로젝트 더보기 버튼 */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-8 lg:mt-12">
           <motion.button
             onClick={openAllProjects}
-            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl korean-text font-medium"
+            className="px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full transition-all duration-300 flex items-center gap-2 lg:gap-3 shadow-lg hover:shadow-xl korean-text font-medium text-sm lg:text-base"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <List className="w-5 h-5" />
+            <List className="w-4 h-4 lg:w-5 lg:h-5" />
             프로젝트 더보기
             <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}>
               →
@@ -505,7 +523,7 @@ export default function Projects() {
               </button>
 
               {/* Modal Header */}
-              <div className="relative h-60 overflow-hidden rounded-t-2xl">
+              <div className="relative h-48 lg:h-60 overflow-hidden rounded-t-2xl">
                 <Image
                   src={selectedProjectData.image || "/placeholder.svg"}
                   alt={selectedProjectData.title}
@@ -513,46 +531,52 @@ export default function Projects() {
                   className="object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-16">
+                <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 right-12 lg:right-16">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="p-2 rounded-lg bg-slate-800/80 backdrop-blur-sm border border-indigo-500/20">
                       {selectedProjectData.icon}
                     </div>
                   </div>
-                  <h2 className="text-2xl font-bold text-white korean-heading leading-tight">
+                  <h2 className="text-xl lg:text-2xl font-bold text-white korean-heading leading-tight">
                     {selectedProjectData.title}
                   </h2>
                 </div>
               </div>
 
               {/* Modal Body */}
-              <div className="p-6 space-y-6">
+              <div className="p-4 lg:p-6 space-y-6">
                 {/* Project Overview */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-3 korean-heading flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-indigo-400" />
+                    <h3 className="text-base lg:text-lg font-semibold text-white mb-3 korean-heading flex items-center gap-2">
+                      <Calendar className="w-4 h-4 lg:w-5 lg:h-5 text-indigo-400" />
                       프로젝트 개요
                     </h3>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
+                      <div className="flex flex-col lg:flex-row lg:justify-between gap-1">
                         <span className="text-slate-400">사업명:</span>
-                        <span className="text-slate-300 korean-text">{selectedProjectData.client}</span>
+                        <span className="text-slate-300 korean-text text-sm lg:text-right">
+                          {selectedProjectData.client}
+                        </span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex flex-col lg:flex-row lg:justify-between gap-1">
                         <span className="text-slate-400">수행기간:</span>
-                        <span className="text-slate-300 korean-text">{selectedProjectData.period}</span>
+                        <span className="text-slate-300 korean-text text-sm lg:text-right">
+                          {selectedProjectData.period}
+                        </span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex flex-col lg:flex-row lg:justify-between gap-1">
                         <span className="text-slate-400">담당업무:</span>
-                        <span className="text-slate-300 korean-text">{selectedProjectData.role}</span>
+                        <span className="text-slate-300 korean-text text-sm lg:text-right">
+                          {selectedProjectData.role}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-3 korean-heading flex items-center gap-2">
-                      <Target className="w-5 h-5 text-violet-400" />
+                    <h3 className="text-base lg:text-lg font-semibold text-white mb-3 korean-heading flex items-center gap-2">
+                      <Target className="w-4 h-4 lg:w-5 lg:h-5 text-violet-400" />
                       프로젝트 목적
                     </h3>
                     <ul className="space-y-2">
@@ -568,14 +592,14 @@ export default function Projects() {
 
                 {/* Key Features */}
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-4 korean-heading flex items-center gap-2">
-                    <Target className="w-5 h-5 text-blue-400" />
+                  <h3 className="text-base lg:text-lg font-semibold text-white mb-4 korean-heading flex items-center gap-2">
+                    <Target className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
                     주요 기능 및 수행 내용
                   </h3>
                   <div className="grid grid-cols-1 gap-3">
                     {selectedProjectData.keyFeatures.map((feature, i) => (
-                      <div key={i} className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50">
-                        <p className="text-sm text-slate-300 korean-text leading-relaxed">{feature}</p>
+                      <div key={i} className="bg-slate-800/50 p-3 lg:p-4 rounded-lg border border-slate-700/50">
+                        <p className="text-xs lg:text-sm text-slate-300 korean-text leading-relaxed">{feature}</p>
                       </div>
                     ))}
                   </div>
@@ -583,14 +607,14 @@ export default function Projects() {
 
                 {/* Achievements */}
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-4 korean-heading flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+                  <h3 className="text-base lg:text-lg font-semibold text-white mb-4 korean-heading flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5 text-green-400" />
                     주요 성과
                   </h3>
                   <div className="grid grid-cols-1 gap-3">
                     {selectedProjectData.achievements.map((achievement, i) => (
-                      <div key={i} className="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
-                        <p className="text-sm text-slate-300 korean-text leading-relaxed">{achievement}</p>
+                      <div key={i} className="bg-green-500/10 p-3 lg:p-4 rounded-lg border border-green-500/20">
+                        <p className="text-xs lg:text-sm text-slate-300 korean-text leading-relaxed">{achievement}</p>
                       </div>
                     ))}
                   </div>
@@ -602,11 +626,11 @@ export default function Projects() {
                     href={selectedProjectData.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 korean-text"
+                    className="inline-flex items-center gap-2 px-4 lg:px-6 py-2 lg:py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-300 korean-text text-sm lg:text-base"
                   >
-                    <Globe className="w-5 h-5" />
+                    <Globe className="w-4 h-4 lg:w-5 lg:h-5" />
                     프로젝트 사이트 방문
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3 h-3 lg:w-4 lg:h-4" />
                   </a>
                 </div>
               </div>
@@ -650,42 +674,44 @@ export default function Projects() {
               </button>
 
               {/* Modal Header */}
-              <div className="p-6 border-b border-slate-700">
-                <h2 className="text-3xl font-bold text-white korean-heading flex items-center gap-3">
-                  <Briefcase className="w-8 h-8 text-indigo-400" />
+              <div className="p-4 lg:p-6 border-b border-slate-700">
+                <h2 className="text-2xl lg:text-3xl font-bold text-white korean-heading flex items-center gap-3">
+                  <Briefcase className="w-6 h-6 lg:w-8 lg:h-8 text-indigo-400" />
                   전체 프로젝트 목록
                 </h2>
-                <p className="text-slate-400 mt-2 korean-text">참여한 모든 프로젝트 리스트입니다.</p>
+                <p className="text-slate-400 mt-2 korean-text text-sm lg:text-base">
+                  참여한 모든 프로젝트 리스트입니다.
+                </p>
               </div>
 
               {/* Projects List */}
-              <div className="p-6">
-                <div className="space-y-4">
+              <div className="p-4 lg:p-6">
+                <div className="space-y-3 lg:space-y-4">
                   {allProjectsList.map((project, index) => (
                     <motion.div
                       key={index}
-                      className="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
+                      className="bg-slate-800/50 p-4 lg:p-6 rounded-xl border border-slate-700/50 hover:border-indigo-500/30 transition-all duration-300"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.05 }}
                       whileHover={{ x: 5 }}
                     >
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 rounded-lg bg-slate-700 border border-slate-600 flex-shrink-0">
-                          <Briefcase className="w-5 h-5 text-indigo-400" />
+                      <div className="flex items-start gap-3 lg:gap-4">
+                        <div className="p-2 lg:p-3 rounded-lg bg-slate-700 border border-slate-600 flex-shrink-0">
+                          <Briefcase className="w-4 h-4 lg:w-5 lg:h-5 text-indigo-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-semibold text-white mb-2 korean-heading leading-tight">
+                          <h3 className="text-base lg:text-lg font-semibold text-white mb-2 korean-heading leading-tight">
                             {project.name}
                           </h3>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                          <div className="grid grid-cols-1 gap-2 lg:gap-4 text-xs lg:text-sm">
                             <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                              <Clock className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
                               <span className="text-slate-400">수행기간:</span>
                               <span className="text-slate-300 korean-text">{project.period}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <User className="w-4 h-4 text-green-400 flex-shrink-0" />
+                              <User className="w-3 h-3 lg:w-4 lg:h-4 text-green-400 flex-shrink-0" />
                               <span className="text-slate-400">수행업무:</span>
                               <span className="text-slate-300 korean-text">{project.role}</span>
                             </div>

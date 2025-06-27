@@ -53,20 +53,73 @@ export default function Experience() {
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-slate-900 to-slate-950 z-0"></div>
 
-      <div className="container mx-auto px-6 relative z-10 w-full">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
         <SectionHeading title="Experience & Career" />
 
         <div className="max-w-5xl mx-auto">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              className="mb-12 relative"
+              className="mb-8 sm:mb-12 relative"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="flex items-start">
+              {/* Mobile Layout */}
+              <div className="block lg:hidden">
+                <div className="bg-slate-900/80 backdrop-blur-md p-6 rounded-2xl border border-indigo-500/20">
+                  {/* Header */}
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center border border-indigo-500/30 mr-4">
+                      <Briefcase className="w-6 h-6 text-indigo-400" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-white korean-heading mb-1">{exp.role}</h3>
+                      <p className="text-lg text-indigo-300 korean-text">{exp.company}</p>
+                    </div>
+                  </div>
+
+                  {/* Period and Location */}
+                  <div className="space-y-2 mb-6">
+                    <div className="flex items-center text-indigo-400">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="korean-text text-sm">{exp.period}</span>
+                    </div>
+                    <div className="flex items-center text-slate-400">
+                      <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="korean-text text-sm">{exp.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Projects */}
+                  <div className="space-y-4">
+                    {exp.projects.map((project, i) => (
+                      <motion.div
+                        key={i}
+                        className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 rounded-lg bg-slate-700 flex-shrink-0">{project.icon}</div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-base font-semibold text-white mb-2 korean-heading leading-tight">
+                              {project.title}
+                            </h4>
+                            <p className="text-slate-300 korean-text text-sm leading-relaxed">{project.description}</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop Layout */}
+              <div className="hidden lg:flex items-start">
                 {/* Timeline dot */}
                 <div className="relative">
                   <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center z-10 relative border border-indigo-500/30">
