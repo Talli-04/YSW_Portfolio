@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, Brain, Clipboard, Settings, MapPin, Calendar, Mail } from "lucide-react"
+import { Clipboard, PencilRuler, MessageSquare } from "lucide-react"
 import SectionHeading from "./SectionHeading"
 import Image from "next/image"
 
@@ -47,34 +47,22 @@ const ParticleField = () => {
 export default function About() {
   const skills = [
     {
-      icon: <Code className="w-8 h-8 text-indigo-400" />,
-      title: "Frontend",
-      description: "HTML, CSS, JavaScript, React.js",
+      icon: <PencilRuler className="w-8 h-8 text-indigo-400" />,
+      title: "기획 및 UX 설계",
+      description:
+        "사용자 중심 UX/UI 기획, 기능 정의서 및 와이어프레임 설계, 데이터 흐름 설계 등 서비스 구조 설계 경험",
     },
     {
-      icon: <Server className="w-8 h-8 text-blue-400" />,
-      title: "Backend",
-      description: "Python, Java, C, C++, Node.js, Express.js",
+      icon: <MessageSquare className="w-8 h-8 text-blue-400" />,
+      title: "기술 커뮤니케이션 능력",
+      description:
+        "HTML/CSS, React.js, Node.js, Python 등 프론트/백엔드 개발 언어 이해도를 바탕으로 기획–개발 간 원활한 커뮤니케이션 수행",
     },
     {
-      icon: <Database className="w-8 h-8 text-violet-400" />,
-      title: "Database",
-      description: "MySQL, MongoDB",
-    },
-    {
-      icon: <Brain className="w-8 h-8 text-fuchsia-400" />,
-      title: "AI/ML",
-      description: "Machine Learning, Deep Learning, Data Science",
-    },
-    {
-      icon: <Clipboard className="w-8 h-8 text-sky-400" />,
-      title: "Project Management",
-      description: "Agile, Leadership",
-    },
-    {
-      icon: <Settings className="w-8 h-8 text-teal-400" />,
-      title: "Other",
-      description: "Salesforce, Cloud Computing",
+      icon: <Clipboard className="w-8 h-8 text-violet-400" />,
+      title: "프로젝트 리딩 경험",
+      description:
+        "다양한 이해관계자와의 협업을 조율하고, Agile 방식으로 팀을 운영하며 일정, 품질, 목표를 관리한 실전 경험",
     },
   ]
 
@@ -144,22 +132,6 @@ export default function About() {
                     <span className="text-teal-300 font-medium"> 프로젝트 관리</span>에 강점을 가지고 있으며, AI/ML
                     기술을 활용한 혁신적인 솔루션 개발에도 관심이 많습니다.
                   </p>
-                </div>
-
-                {/* Quick Info */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                  <div className="flex items-center gap-2 text-sm text-slate-400">
-                    <MapPin className="w-4 h-4 text-indigo-400" />
-                    <span>Hyderabad, India</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-400">
-                    <Calendar className="w-4 h-4 text-blue-400" />
-                    <span>Available for Projects</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-400">
-                    <Mail className="w-4 h-4 text-violet-400" />
-                    <span>Open to Collaborate</span>
-                  </div>
                 </div>
               </div>
             </motion.div>

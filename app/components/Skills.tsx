@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Database, Server, PencilRuler, FileText, Layers, Cloud, Network, Code2 } from "lucide-react"
+import { Code, PencilRuler, FileText, Network, Shield } from "lucide-react"
 import SectionHeading from "./SectionHeading"
 
 // Animated background component
@@ -113,66 +113,42 @@ export default function Skills() {
   const skills = [
     {
       icon: Code,
-      title: "Front-End Development",
-      technologies: "HTML, CSS, JavaScript, React.js",
-      description: "Building modern, responsive user interfaces with React.js and core front-end technologies.",
+      title: "프로그래밍",
+      technologies: "C, Java, Python, SQL, HTML, CSS",
+      description:
+        "절차적/객체지향 프로그래밍 언어에 능숙하며, 웹 마크업 언어와 SQL을 활용한 기본적인 데이터 처리 및 UI 개발 경험 보유.",
       color: "blue",
     },
     {
-      icon: Server,
-      title: "Back-End Development",
-      technologies: "Python, Java, C, C++",
-      description: "Developing scalable back-end solutions with multiple programming languages.",
-      color: "green",
-    },
-    {
-      icon: Layers,
-      title: "Frameworks & Stacks",
-      technologies: "MERN, Django, Spring Boot",
-      description: "Expertise in full-stack development using modern frameworks for web applications.",
-      color: "violet",
-    },
-    {
-      icon: Database,
-      title: "Databases",
-      technologies: "MongoDB, MySQL",
-      description: "Efficient database design and management for optimal data handling.",
+      icon: Shield,
+      title: "취약점 분석",
+      technologies: "Burp Suite, IDA, Wireshark",
+      description:
+        "애플리케이션 및 네트워크 보안 점검 경험 보유. 패킷 분석, 리버스 엔지니어링, 취약점 탐지 및 테스트 도구를 활용한 보안 분석 역량 보유.",
       color: "red",
     },
     {
+      icon: PencilRuler,
+      title: "기획 및 디자인",
+      technologies: "Figma",
+      description: "와이어프레임 설계, UI 목업, 사용자 흐름도 등의 인터페이스 기획 및 프로토타이핑 도구 활용.",
+      color: "violet",
+    },
+    {
       icon: Network,
-      title: "RESTful API Development",
-      technologies: "REST API, JSON, Fetch, Axios",
-      description: "Designing and implementing secure and efficient APIs for seamless data communication.",
+      title: "프로젝트 협업 도구",
+      technologies: "Slack, Notion",
+      description:
+        "팀 커뮤니케이션 및 실시간 협업 툴로 Slack 활용 및 문서 작성 및 일정 관리, 기능 정의 등의 기획/운영 도구로 Notion을 적극 활용.",
       color: "teal",
     },
     {
-      icon: Code2,
-      title: "Data Interchange",
-      technologies: "JSON, XML",
-      description: "Working with structured data formats for APIs, databases, and software applications.",
-      color: "cyan",
-    },
-    {
-      icon: Cloud,
-      title: "Salesforce Administration",
-      technologies: "Salesforce CRM",
-      description: "Managing Salesforce applications, workflows, and automation for business processes.",
-      color: "indigo",
-    },
-    {
-      icon: PencilRuler,
-      title: "Design Tools",
-      technologies: "Canva",
-      description: "Creating visually appealing designs for presentations, social media, and branding.",
-      color: "orange",
-    },
-    {
       icon: FileText,
-      title: "Microsoft Office",
-      technologies: "Word, Excel, PowerPoint, Outlook",
-      description: "Proficient in document creation, data analysis, presentations, and email management.",
-      color: "blue",
+      title: "문서 작성 도구",
+      technologies: "HWP, PowerPoint, Excel",
+      description:
+        "기획안, 보고서, 발표자료, 데이터 정리 등 다양한 문서 업무에 능숙하며 한컴오피스 및 MS오피스 활용 경험 다수.",
+      color: "orange",
     },
   ]
 
@@ -183,7 +159,7 @@ export default function Skills() {
       <div className="container mx-auto px-6 relative z-10">
         <SectionHeading title="Technical Skills" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {skills.map((skill, index) => (
             <SkillCard
               key={index}

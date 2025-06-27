@@ -315,40 +315,67 @@ export default function Hero() {
             <span className="text-indigo-300 font-medium">Product Manager</span>입니다.
           </motion.p>
 
+          {/* Replace the button section with enhanced design */}
           <motion.div
-            className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4"
+            className="flex flex-col gap-4 max-w-md mx-auto lg:mx-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
           >
-            <a
-              href="https://drive.google.com/file/d/1dXmj_iZQ1BxLyIXB1WsKJcao_uJx7igs/view"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-            >
-              <span>이력서 다운로드</span>
-              <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}>
-                →
-              </motion.span>
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full transition-all duration-300 flex items-center justify-center gap-2 border border-slate-600"
-            >
-              <span>노션 포트폴리오</span>
-              <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}>
-                →
-              </motion.span>
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://drive.google.com/file/d/1dXmj_iZQ1BxLyIXB1WsKJcao_uJx7igs/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:shadow-indigo-500/25 transform hover:-translate-y-1 flex-1 min-w-0"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span className="font-semibold korean-text text-sm whitespace-nowrap">이력서 다운로드</span>
+              </a>
+
+              <a
+                href="https://marked-angora-5d6.notion.site/B2C-B2B-PM-1f981b39908480ec91d7d9ea52959327?pvs=74"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative px-6 py-3 bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-700 hover:to-slate-600 text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:shadow-slate-500/25 transform hover:-translate-y-1 border border-slate-600/50 flex-1 min-w-0"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-600 to-slate-500 rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 64 64" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="m5.2,47.56s8,10.37,8.48,10.83c1.16,1.11,2.73,1.69,4.33,1.6,8.37-.42,27.54-1.38,35.57-1.78,3.11-.16,5.55-2.72,5.56-5.83l.1-35.5c0-1.99-1.03-3.83-2.72-4.87t0,0c-2.99-1.84-8.91-5.49-10.7-6.68-1.46-.97-3.2-1.43-4.96-1.32-5.96.38-23.45,1.51-30.85,1.98-2.96.19-5.24,2.62-5.24,5.54v34.78c0,.45.15.89.43,1.24h0Zm50.01-28.91v.02l-.1,33.7c0,.97-.77,1.77-1.74,1.82l-35.57,1.78c-.5.03-.99-.16-1.35-.5-.36-.34-.57-.82-.57-1.32V20.71c0-.97.75-1.77,1.72-1.82l35.67-2.06c.5-.03.99.15,1.36.5.36.34.57.82.57,1.32h0Zm-11.98,21.42v-13.72c-.63-.72-1.63-.67-3.07-1.11-.1-.03-.19-.11-.23-.21-.04-.1-.03-.22.03-.31,1.72-2.53,6.63-.95,9.83-1.96.09-.03.2-.02.28.05.08.07.11.17.09.27-.31,1.39-1.4,2.1-2.95,2.4v22.57c0,.75-.45,1.44-1.15,1.72-.64.26-1.31.54-1.31.54-1.54.8-3.43.29-4.37-1.17l-11.46-17.87v16.27c.62.72,1.63.67,3.07,1.11.1.03.19.11.23.21.04.1.03.22-.03.31-1.73,2.53-6.63.95-9.83,1.96-.09.04-.2.02-.28-.05-.08-.06-.11-.17-.09-.27.31-1.39,1.4-2.1,2.95-2.4v-21.31l-3.02-.29s.21-2.45,3.09-2.73c1.42-.14,5.13-.3,6.47-.36.3-.01.59.13.77.38l10.99,15.95h0ZM15.03,14.28c.55.42,1.24.63,1.93.59,5.09-.29,26.82-1.53,32.21-1.84.17-.01.31-.13.35-.29.04-.16-.03-.33-.17-.42-2.39-1.49-4.74-2.95-5.76-3.63-.73-.48-1.6-.71-2.48-.66,0,0-24.7,1.36-29.78,1.91-.64.07-.78.3-.8.39-.09.31.02.54.27.74,1.02.78,3.07,2.33,4.23,3.21h0Z"
+                  />
+                </svg>
+                <span className="font-semibold korean-text text-sm whitespace-nowrap">노션 포트폴리오</span>
+              </a>
+            </div>
+
             <button
               onClick={() => smoothScrollTo("about")}
-              className="px-8 py-3 border border-indigo-500 text-indigo-300 hover:bg-indigo-600/20 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
+              className="group relative px-6 py-3 bg-transparent border-2 border-indigo-500/50 text-indigo-300 hover:bg-indigo-500/10 hover:border-indigo-400 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm hover:shadow-lg hover:shadow-indigo-500/20 transform hover:-translate-y-1"
             >
-              <span>더보기</span>
-              <motion.span animate={{ y: [0, 5, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}>
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span className="font-semibold korean-text text-sm">더보기</span>
+              <motion.span
+                animate={{ y: [0, 5, 0] }}
+                transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
+                className="text-lg"
+              >
                 ↓
               </motion.span>
             </button>
